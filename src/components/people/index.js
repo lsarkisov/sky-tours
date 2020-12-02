@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Card, Spinner } from 'react-bootstrap'
+import { Link, useHistory } from 'react-router-dom'
 import { getPeopleAction } from 'actions/people'
+import { onPersonSelectedAction } from 'actions/person'
 import Search from 'components/search'
+import { SkyPagination } from 'lib'
 
 export default function People(props) {
   const [filtered, setFiltered] = useState(null)
+  const [page, setPage] = useState(1)
+  const history = useHistory()
   const dispatch = useDispatch()
   const { all } = useSelector((state) => state.people)
+  const itemsOnPage = 5
 
   useEffect(() => {
     if (!all) {
@@ -21,41 +27,56 @@ export default function People(props) {
 
   const onClear = () => setFiltered(null)
 
+  const onSelected = (person) => {
+    dispatch(onPersonSelectedAction(person))
+    history.push('/person')
+  }
+
+  const onPaginate = (p) => setPage(p)
+
   return (
     <Container className="p-0 people">
       {!all && <Spinner />}
-      {all && <Search data={all.results} onSearch={onSearch} onClear={onClear} />}
+      {all && (
+        <Search
+          data={all.results}
+          onSearch={onSearch}
+          onClear={onClear}
+          onSelected={onSelected}
+        />
+      )}
       {all &&
-        (filtered ? filtered : all.results).map((person) => (
-          <Card key={`${person.name}-${person.mass}-${person.height}`}>
-            <dl>
-              <dt>
-                <b>name</b> {person.name}
-              </dt>
-              <dd>
-                <b>height</b> {person.height}
-              </dd>
-              <dd>
-                <b>mass</b> {person.mass}
-              </dd>
-              <dd>
-                <b>hair_color</b> {person.hair_color}
-              </dd>
-              <dd>
-                <b>skin_color</b> {person.skin_color}
-              </dd>
-              <dd>
-                <b>eye_color</b> {person.eye_color}
-              </dd>
-              <dd>
-                <b>birth_year</b> {person.birth_year}
-              </dd>
-              <dd>
-                <b>gender</b> {person.gender}
-              </dd>
-            </dl>
-          </Card>
+        (filtered
+          ? filtered
+          : all.results.filter(
+              (item, index) => index >= page && index < page + itemsOnPage,
+            )
+        ).map((person) => (
+          <Link
+            to="/person"
+            key={`${person.name}-${person.mass}-${person.height}`}
+            onClick={() => onSelected(person)}
+          >
+            <Card>
+              <dl>
+                <dt>
+                  <b>name</b> {person.name}
+                </dt>
+                <dd>
+                  <b>gender</b> {person.gender}
+                </dd>
+              </dl>
+            </Card>
+          </Link>
         ))}
+      {all && (
+        <SkyPagination
+          activePage={page}
+          itemsCountPerPage={itemsOnPage}
+          totalItemsCount={filtered ? filtered.length : all.results.length}
+          onChange={onPaginate}
+        />
+      )}
     </Container>
   )
 }

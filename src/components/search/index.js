@@ -63,6 +63,7 @@ export default function Search(props) {
     if (suggestion.isAddNew) {
       console.log('Add new:', value)
     }
+    props.onSelected(suggestion)
   }
 
   const inputProps = {

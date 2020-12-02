@@ -5,3 +5,4 @@ export const getPeopleAction = () => ({
   type: types.PEOPLE[REQUEST],
   payload: null,
 })
+

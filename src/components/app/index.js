@@ -1,12 +1,12 @@
 import React from 'react'
 import Routes from 'routes'
-import { Header, Page } from 'lib'
+import { SkyHeader, SkyPage } from 'lib'
 
 export default function App(props) {
   return (
-    <Page>
-      <Header />
+    <SkyPage>
+      <SkyHeader />
       <Routes />
-    </Page>
+    </SkyPage>
   )
 }

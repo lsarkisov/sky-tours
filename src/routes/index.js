@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import NoMatch from 'components/no-match'
 import Home from 'components/home'
+import Person from 'components/person'
 
 const PublicRoute = ({ component, ...rest }) => {
   const routeComponent = (props) => React.createElement(component, props)
@@ -29,6 +30,7 @@ function Routes() {
     <Router>
       <Switch>
         <PublicRoute exact component={Home} path="/" />
+        <PublicRoute component={Person} path="/person" />
         <PublicRoute component={NoMatch} />
       </Switch>
     </Router>

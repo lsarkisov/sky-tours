@@ -10,3 +10,4 @@ function createRequestTypes(base) {
 /* People
 ----------------------------------------*/
 export const PEOPLE = createRequestTypes('PEOPLE')
+export const PERSON = 'PERSON'

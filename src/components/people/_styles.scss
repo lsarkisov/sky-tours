@@ -1,7 +1,19 @@
 .people {
+    a {
+        &:hover {
+            text-decoration: none;
+        }
+    }
     .card {
         margin-bottom: 15px;
         padding: 10px 15px;
         text-transform: capitalize;
+        color: black;
+    }
+
+    .sky-search {
+        margin-bottom: 15px;
     }
 }
+
+

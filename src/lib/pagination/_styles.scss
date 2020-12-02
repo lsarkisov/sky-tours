@@ -1,0 +1,13 @@
+.pagination {
+    li {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .active, .disabled {
+        a {
+            color: $gray-400;
+            cursor: default;
+        }
+    }
+}
