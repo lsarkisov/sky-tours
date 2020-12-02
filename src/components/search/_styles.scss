@@ -1,0 +1,49 @@
+.sky-search {
+    position: relative;
+
+    .react-autosuggest {
+        &__container {
+            input {
+                display: block;
+                width: 100%;
+                height: calc(1.5em + 0.75rem + 2px);
+                padding: 0.375rem 0.75rem;
+                color: $gray-600;
+                background-color: white;
+                background-clip: padding-box;
+                border: 1px solid $gray-300;
+                border-radius: 0.25rem;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+        }
+
+        &__suggestions-container--open {
+            position: absolute;
+            z-index: 100;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: scroll;
+            background-color: white;
+            background-clip: padding-box;
+            border: 1px solid $gray-300;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+            ul {
+                margin: 0;
+            }
+
+            li {
+                padding: 0.375rem 0.75rem;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &__suggestion--highlighted {
+            background-color: $table-hover-bg;
+        }
+    }
+}
