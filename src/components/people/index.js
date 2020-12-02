@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Card, Spinner } from 'react-bootstrap'
+import { Container, Card } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
 import { getPeopleAction } from 'actions/people'
 import { onPersonSelectedAction } from 'actions/person'
 import Search from 'components/search'
-import { SkyPagination } from 'lib'
+import { SkySpinner, SkyPagination } from 'lib'
 
 export default function People(props) {
   const [filtered, setFiltered] = useState(null)
@@ -36,7 +36,7 @@ export default function People(props) {
 
   return (
     <Container className="p-0 people">
-      {!all && <Spinner />}
+      {!all && <SkySpinner />}
       {all && (
         <Search
           data={all.results}
