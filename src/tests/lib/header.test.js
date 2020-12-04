@@ -1,14 +1,32 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { act } from 'react-dom/test-utils'
-import { MemoryRouter, click } from 'react-router-dom'
+import { MemoryRouter, Route } from 'react-router-dom'
 import { SkyHeader } from 'lib'
+import { faItalic } from '@fortawesome/free-solid-svg-icons'
 
-let container
+let container, testHistory, testLocation
 
 beforeEach(() => {
   container = document.createElement('div')
   document.body.appendChild(container)
+
+  act(() => {
+    ReactDOM.render(
+      <MemoryRouter initialEntries={['/some/path']}>
+        <SkyHeader />
+        <Route
+          path="*"
+          render={({ history, location }) => {
+            testHistory = history
+            testLocation = location
+            return null
+          }}
+        />
+      </MemoryRouter>,
+      container,
+    )
+  })
 })
 
 afterEach(() => {
@@ -16,17 +34,15 @@ afterEach(() => {
   container = null
 })
 
-it('Render and check SkyHeader', () => {
-  act(() => {
-    ReactDOM.render(
-      <MemoryRouter initialEntries={['/person']}>
-        <SkyHeader />
-      </MemoryRouter>,
-      container,
-    )
-  })
 
+it('logo\'s text', () => {
   const nav = document.querySelector('a')
   expect(nav.textContent).toBe('Sky Tours')
+})
 
+it('default path', () => {
+  const nav = document.querySelector('a')
+  expect(testLocation.pathname).toBe('/some/path')
+  nav.click()
+  expect(testLocation.pathname).toBe('/')
 })
