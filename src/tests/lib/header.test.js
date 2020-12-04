@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { act } from 'react-dom/test-utils'
 import { MemoryRouter, Route } from 'react-router-dom'
 import { SkyHeader } from 'lib'
-import { faItalic } from '@fortawesome/free-solid-svg-icons'
 
 let container, testHistory, testLocation
 

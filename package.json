@@ -12,6 +12,8 @@
     "@testing-library/user-event": "^7.1.2",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
     "husky": "^4.2.3",
     "i18next": "^19.3.3",
     "lint-staged": "^10.0.8",
