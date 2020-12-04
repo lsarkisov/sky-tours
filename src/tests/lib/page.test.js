@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { MemoryRouter, Route } from 'react-router-dom'
 import { act, isDOMComponent } from 'react-dom/test-utils'
+import { MemoryRouter, Route } from 'react-router-dom'
 import { SkyPage } from 'lib'
 
 let container, testHistory, testLocation
@@ -11,22 +11,23 @@ beforeEach(() => {
   document.body.appendChild(container)
 
   act(() => {
-    act(() => {
-      ReactDOM.render(
-        <MemoryRouter initialEntries={['/some/path']}>
-          <SkyPage />
-          <Route
-            path="*"
-            render={({ history, location }) => {
-              testHistory = history
-              testLocation = location
-              return null
-            }}
-          />
-        </MemoryRouter>,
-        container,
-      )
-    })
+    ReactDOM.render(
+      <MemoryRouter initialEntries={['/some/path']}>
+        <SkyPage>
+          <div className="child-component">some text</div>
+          <div className="child-component">some text</div>
+        </SkyPage>
+        <Route
+          path="*"
+          render={({ history, location }) => {
+            testHistory = history
+            testLocation = location
+            return null
+          }}
+        />
+      </MemoryRouter>,
+      container,
+    )
   })
 })
 
@@ -35,13 +36,17 @@ afterEach(() => {
   container = null
 })
 
-
-it('has a class page', () => {
-  const pageClass = document.body.querySelector('.page')
-  expect(isDOMComponent(pageClass)).toBe(true)
+it('has class page', () => {
+  const page = document.querySelector('.page')
+  expect(isDOMComponent(page)).toBe(true)
 })
 
-it('has header as a child', () => {
-  const hasNavbar = document.body.querySelector('.navbar')
-  expect(isDOMComponent(hasNavbar)).toBe(true)
+it('has a logo', () => {
+  const logoText = document.querySelector('a').textContent
+  expect(logoText).toBe('Sky Tours')
+})
+
+it('renders children', () => {
+  const children = document.querySelectorAll('.child-component')
+  expect(children.length).toBe(2)
 })

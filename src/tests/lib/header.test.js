@@ -33,8 +33,7 @@ afterEach(() => {
   container = null
 })
 
-
-it('logo\'s text', () => {
+it("logo's text", () => {
   const nav = document.querySelector('a')
   expect(nav.textContent).toBe('Sky Tours')
 })
